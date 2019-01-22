@@ -1,5 +1,7 @@
 # Typed Function References
 
+[To be moved into its own proposal repo.]
+
 This proposal adds function references that are typed and can be called directly. Unlike `funcref` and the existing `call_indirect` instruction, typed function references need not be stored into a table to be called (though they can), they cannot be null, and a call through them does not require any runtime check. A typed function reference can be formed from any function index.
 
 In addition to instructions for producing and consuming function references, the proposal also adds an instruction for forming a *closure* from a function reference, which takes a prefix of the function's arguments and returns a new function reference with those parameters bound. (Hence, conceptually, all function references are closures of 0 or more parameters.)
