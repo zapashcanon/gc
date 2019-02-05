@@ -4,9 +4,11 @@
 
 This proposal adds function references that are typed and can be called directly. Unlike `funcref` and the existing `call_indirect` instruction, typed function references need not be stored into a table to be called (though they can), they cannot be null, and a call through them does not require any runtime check. A typed function reference can be formed from any function index.
 
-In addition to instructions for producing and consuming function references, the proposal also adds an instruction for forming a *closure* from a function reference, which takes a prefix of the function's arguments and returns a new function reference with those parameters bound. (Hence, conceptually, all function references are closures of 0 or more parameters.)
+The proposal has instructions for producing and consuming (calling) function references.
 
 Typed references have no canonical default value, because they cannot be null. To enable storing them in locals, which so far depend on default values for initialisation, the proposal also introduces a new instruction `let` for block-scoped locals whose initialisation values are taken from the operand stack.
+
+In addition to the above, we could also decide to include an instruction for forming a *closure* from a function reference, which takes a prefix of the function's arguments and returns a new function reference with those parameters bound. (Hence, conceptually, all function references would be closures of 0 or more parameters.)
 
 
 ## Language
@@ -56,7 +58,7 @@ Question: Include optref as well?
   - `call_ref : [t1* (ref $t)] -> [t2*]`
      - iff `$t = [t1*] -> [t2*]`
 
-* `func.bind` creates or extends a closure by binding one or several parameters
+* Optional extension: `func.bind` creates or extends a closure by binding one or several parameters
   - `func.bind $t : [t1^n (ref $t)] -> [(ref $t')]`
     - iff `$t = [t1^n t1'*] -> [t2*]`
     - and `$t' = [t1'*] -> [t2*]`
